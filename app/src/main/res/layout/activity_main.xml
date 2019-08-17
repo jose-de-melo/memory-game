@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout"
+    android:id="@+id/initialWindow"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -12,9 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="8dp"
-        android:text="Recarregar"
+        android:onClick="restartGame"
+        android:text="Restart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,130 +23,150 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout2"
-        android:layout_width="286dp"
-        android:layout_height="541dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="272dp"
+        android:layout_height="489dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button24"
-        app:layout_constraintVertical_bias="0.243">
+        app:layout_constraintVertical_bias="0.0">
 
         <Button
-            android:id="@+id/button67"
+            android:id="@+id/b1"
             android:layout_width="121dp"
             android:layout_height="102dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/default_gap"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/colorButton1"
+            android:onClick="analisarJogada"
             android:text="1"
-            app:layout_constraintBottom_toTopOf="@+id/button64"
-            app:layout_constraintEnd_toStartOf="@+id/button62"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@+id/b3"
+            app:layout_constraintEnd_toStartOf="@+id/b6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button66"
+            android:id="@+id/b2"
             android:layout_width="121dp"
             android:layout_height="102dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/colorButton6"
+            android:onClick="analisarJogada"
             android:text="6"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button63"
-            app:layout_constraintTop_toBottomOf="@+id/button65" />
+            app:layout_constraintStart_toEndOf="@+id/b5"
+            app:layout_constraintTop_toBottomOf="@+id/b4" />
 
         <Button
-            android:id="@+id/button64"
+            android:id="@+id/b3"
             android:layout_width="121dp"
             android:layout_height="102dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/colorButton3"
+            android:onClick="analisarJogada"
             android:text="3"
-            app:layout_constraintBottom_toTopOf="@+id/button63"
-            app:layout_constraintEnd_toStartOf="@+id/button65"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@+id/b5"
+            app:layout_constraintEnd_toStartOf="@+id/b4"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button67" />
+            app:layout_constraintTop_toBottomOf="@+id/b1" />
 
         <Button
-            android:id="@+id/button65"
+            android:id="@+id/b4"
             android:layout_width="121dp"
             android:layout_height="102dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/colorButton4"
+            android:onClick="analisarJogada"
             android:text="4"
-            app:layout_constraintBottom_toTopOf="@+id/button66"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@+id/b2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button64"
-            app:layout_constraintTop_toBottomOf="@+id/button62" />
+            app:layout_constraintStart_toEndOf="@+id/b3"
+            app:layout_constraintTop_toBottomOf="@+id/b6" />
 
         <Button
-            android:id="@+id/button63"
+            android:id="@+id/b5"
             android:layout_width="121dp"
             android:layout_height="102dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/colorButton5"
+            android:onClick="analisarJogada"
             android:text="5"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button66"
+            app:layout_constraintEnd_toStartOf="@+id/b2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button64" />
+            app:layout_constraintTop_toBottomOf="@+id/b3" />
 
         <Button
-            android:id="@+id/button62"
+            android:id="@+id/b6"
             android:layout_width="121dp"
             android:layout_height="102dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/colorButton2"
+            android:onClick="analisarJogada"
             android:text="2"
-            app:layout_constraintBottom_toTopOf="@+id/button65"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@+id/b4"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button67"
+            app:layout_constraintStart_toEndOf="@+id/b1"
             app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 
     <ProgressBar
-        android:id="@+id/progressBar4"
+        android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="220dp"
         android:layout_height="35dp"
         android:layout_marginStart="2dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:backgroundTint="@android:color/white"
+        android:max="102"
+        android:progressTint="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+        app:layout_constraintVertical_bias="0.16000003" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Progresso"
+        android:text="Progress"
+        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/progressBar4"
+        app:layout_constraintEnd_toStartOf="@+id/progressBar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+        app:layout_constraintVertical_bias="0.16000003" />
 
 </android.support.constraint.ConstraintLayout>
