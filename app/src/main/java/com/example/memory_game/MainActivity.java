@@ -3,10 +3,9 @@ package com.example.memory_game;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.support.constraint.ConstraintLayout;
@@ -16,13 +15,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Integer> listaNumeros;
     private int posicaoAtual = 1;
     private int[] colorsButtons;
-    private String initialTime = null, endTime = null;
+    private int hoursElapsed = 0, minutesElapsed = 0, secondsElapsed = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +41,40 @@ public class MainActivity extends AppCompatActivity {
                 getResources().getColor(R.color.colorButton5),
                 getResources().getColor(R.color.colorButton6)
         };
-        initialTime = null;
-        endTime = null;
+
+        hoursElapsed = minutesElapsed = secondsElapsed = 0;
+        final Handler att = new Handler();
+        att.post(new Runnable() {
+            @Override
+            public void run() {
+                att.postDelayed(this, 1000);
+                attTime(false);
+            }
+        });
+    }
+
+    private void attTime(boolean clear){
+        TextView timer = (TextView) findViewById(R.id.time);
+
+        if(clear){
+            hoursElapsed = minutesElapsed = secondsElapsed = 0;
+            timer.setText(String.format("%02d", hoursElapsed) + ":" + String.format("%02d", minutesElapsed) + ":" + String.format("%02d", secondsElapsed));
+        }
+        else {
+            secondsElapsed++;
+            if (secondsElapsed == 60) {
+                secondsElapsed = 0;
+                minutesElapsed++;
+                if (minutesElapsed == 60) {
+                    minutesElapsed = 0;
+                    hoursElapsed++;
+                    if (hoursElapsed == 24) {
+                        restartGame(getCurrentFocus());
+                    }
+                }
+            }
+            timer.setText(String.format("%02d", hoursElapsed) + ":" + String.format("%02d", minutesElapsed) + ":" + String.format("%02d", secondsElapsed));
+        }
     }
 
     @Override
@@ -54,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         shuffleSeq();
         Log.d("SEQUENCIA", listaNumeros.toString());
-        initialTime = getTime();
     }
 
     private void gerarSequencia(){
@@ -92,8 +119,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(posicaoAtual == 7){
-            endTime = getTime();
-
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
@@ -101,20 +126,19 @@ public class MainActivity extends AppCompatActivity {
             }
             finish();
             Intent intent = new Intent(this, WinActivity.class);
-            intent.putExtra("Time", calculateTime(initialTime, endTime));
+            intent.putExtra("Time", calculateTime());
             startActivity(intent);
             playSound(0);
         }
     }
 
     public void restartGame(View view){
+        attTime(true);
         ((ConstraintLayout) findViewById(R.id.initialWindow)).setBackgroundColor(Color.WHITE);
         showButtons();
         ((ProgressBar) findViewById(R.id.progressBar)).setProgress(0);
         posicaoAtual = 1;
         shuffleSeq();
-        initialTime = getTime();
-
     }
 
     public void showButtons(){
@@ -175,29 +199,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    public String getTime(){
-        SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HH:mm:ss");
-        Date data = new Date();
-
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(data);
-        Date data_atual = cal.getTime();
-        String hora_atual = dateFormat_hora.format(data_atual);
-        Log.d("hora_atual", hora_atual);
-        return hora_atual;
-    }
-
-    public String calculateTime(String initialDate, String finalDate){
+    public String calculateTime(){
         int time = 0;
 
-        String[] breakDateI =  initialDate.split(":"), breakDateF = finalDate.split(":");
-
-        time += (Integer.parseInt(breakDateF[0]) - Integer.parseInt(breakDateI[0])) * 3600;
-        time += (Integer.parseInt(breakDateF[1]) - Integer.parseInt(breakDateI[1])) * 60;
-        time += (Integer.parseInt(breakDateF[2]) - Integer.parseInt(breakDateI[2]));
-
-        Log.d("TIMEHOUR", String.valueOf(time));
+        time += hoursElapsed * 3600;
+        time += minutesElapsed * 60;
+        time += secondsElapsed;
 
         return String.valueOf(time);
     }
