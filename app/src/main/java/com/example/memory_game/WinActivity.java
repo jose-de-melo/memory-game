@@ -13,6 +13,10 @@ public class WinActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_win);
         ((TextView) findViewById(R.id.pontuacao)).setText("Time: " + getIntent().getStringExtra("Time") + " seconds");
+        ((TextView) findViewById(R.id.recorde)).setText("Record: " + getIntent().getStringExtra("RECORD") + " seconds");
+        if(Integer.valueOf(getIntent().getStringExtra("NEWRECORD")) == 1){
+            ((TextView) findViewById(R.id.newRecord)).setVisibility(View.VISIBLE);
+        }
     }
 
     public void newGame(View view){

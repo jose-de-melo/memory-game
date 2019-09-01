@@ -2,15 +2,17 @@ package com.example.memory_game;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private int posicaoAtual = 1;
     private int[] colorsButtons;
     private int hoursElapsed = 0, minutesElapsed = 0, secondsElapsed = 0;
+    private int recorde, recordeAtual;
+    private SharedPreferences myPreferences;
+    private SharedPreferences.Editor myEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void gravarRecorde(){
+        myEditor.putInt("RECORDE", recordeAtual);
+        myEditor.commit();
+    }
+
 
     private void attTime(boolean clear){
         TextView timer = (TextView) findViewById(R.id.time);
@@ -82,6 +93,11 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         shuffleSeq();
         Log.d("SEQUENCIA", listaNumeros.toString());
+        myPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        myEditor = myPreferences.edit();
+
+        recorde = recordeAtual = myPreferences.getInt("RECORDE", 0);
+        Log.d("RECORDE", String.valueOf(recorde));
     }
 
     private void gerarSequencia(){
@@ -126,7 +142,17 @@ public class MainActivity extends AppCompatActivity {
             }
             finish();
             Intent intent = new Intent(this, WinActivity.class);
-            intent.putExtra("Time", calculateTime());
+            int time =  calculateTime();
+            if(time < recordeAtual || recordeAtual == 0) {
+                recordeAtual = time;
+                gravarRecorde();
+                intent.putExtra("NEWRECORD", "1");
+            }
+            else{
+                intent.putExtra("NEWRECORD", "0");
+            }
+            intent.putExtra("Time", String.valueOf(time));
+            intent.putExtra("RECORD", String.valueOf(recordeAtual));
             startActivity(intent);
             playSound(0);
         }
@@ -199,13 +225,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public String calculateTime(){
+    public int calculateTime(){
         int time = 0;
 
         time += hoursElapsed * 3600;
         time += minutesElapsed * 60;
         time += secondsElapsed;
 
-        return String.valueOf(time);
+        return time;
     }
 }
