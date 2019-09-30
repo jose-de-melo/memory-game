@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:showAsAction="ifRoom"
+    tools:context="com.example.memory_game.MainActivity">
+
+    <item
+        android:id="@+id/action_ranking"
+        android:title="@string/action_rank"
+        app:showAsAction="never"></item>
+</menu>

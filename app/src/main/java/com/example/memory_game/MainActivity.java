@@ -13,11 +13,17 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.app.services.Requests;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,11 +38,23 @@ public class MainActivity extends AppCompatActivity {
     private int recorde, recordeAtual;
     private SharedPreferences myPreferences;
     private SharedPreferences.Editor myEditor;
+    private boolean firstButtonClicked = false;
+    private final Handler att = new Handler();
+    private Requests reqs = new Requests();
+    private String player_name = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Memory Game");
+        }
+        toolbar.inflateMenu(R.menu.main_menu);
+
         gerarSequencia();
         colorsButtons = new int[]{
                 getResources().getColor(R.color.colorButton1),
@@ -48,14 +66,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         hoursElapsed = minutesElapsed = secondsElapsed = 0;
-        final Handler att = new Handler();
-        att.post(new Runnable() {
-            @Override
-            public void run() {
-                att.postDelayed(this, 1000);
-                attTime(false);
-            }
-        });
+
     }
 
     private void gravarRecorde(){
@@ -63,6 +74,24 @@ public class MainActivity extends AppCompatActivity {
         myEditor.commit();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_ranking:
+                ranking(getCurrentFocus());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     private void attTime(boolean clear){
         TextView timer = (TextView) findViewById(R.id.time);
@@ -113,6 +142,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void analisarJogada(View view){
+        if(!firstButtonClicked){
+            att.post(new Runnable() {
+                @Override
+                public void run() {
+                    att.postDelayed(this, 1000);
+                    attTime(false);
+                }
+            });
+            firstButtonClicked = true;
+        }
         ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.initialWindow);
         Button button = (Button) view;
         ProgressBar bar = (ProgressBar) findViewById(R.id.progressBar);
@@ -140,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
             finish();
             Intent intent = new Intent(this, WinActivity.class);
             int time =  calculateTime();
@@ -233,5 +273,10 @@ public class MainActivity extends AppCompatActivity {
         time += secondsElapsed;
 
         return time;
+    }
+
+    public void ranking(View view){
+        Intent intent = new Intent(this, Ranking.class);
+        startActivity(intent);
     }
 }

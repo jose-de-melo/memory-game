@@ -7,20 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="8dp"
-        android:onClick="restartGame"
-        android:text="Restart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="272dp"
@@ -41,10 +27,11 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/colorButton1"
+            android:fontFamily="@font/gotham"
             android:onClick="analisarJogada"
             android:text="1"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:textStyle="bold"
             android:typeface="serif"
             app:layout_constraintBottom_toTopOf="@+id/b3"
@@ -61,10 +48,11 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/colorButton6"
+            android:fontFamily="@font/gotham"
             android:onClick="analisarJogada"
             android:text="6"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:textStyle="bold"
             android:typeface="serif"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -81,10 +69,11 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/colorButton3"
+            android:fontFamily="@font/gotham"
             android:onClick="analisarJogada"
             android:text="3"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:textStyle="bold"
             android:typeface="serif"
             app:layout_constraintBottom_toTopOf="@+id/b5"
@@ -101,10 +90,11 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/colorButton4"
+            android:fontFamily="@font/gotham"
             android:onClick="analisarJogada"
             android:text="4"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:textStyle="bold"
             android:typeface="serif"
             app:layout_constraintBottom_toTopOf="@+id/b2"
@@ -121,10 +111,11 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/colorButton5"
+            android:fontFamily="@font/gotham"
             android:onClick="analisarJogada"
             android:text="5"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:textStyle="bold"
             android:typeface="serif"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -141,10 +132,11 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/colorButton2"
+            android:fontFamily="@font/gotham"
             android:onClick="analisarJogada"
             android:text="2"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:textStyle="bold"
             android:typeface="serif"
             app:layout_constraintBottom_toTopOf="@+id/b4"
@@ -153,6 +145,21 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/button24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/gotham"
+        android:onClick="restartGame"
+        android:text="RESTART"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -179,6 +186,7 @@
         android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:fontFamily="@font/gotham"
         android:text="Progress"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -195,10 +203,39 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:fontFamily="@font/gotham"
+        android:text="00:00:00"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toStartOf="@+id/button24"
-        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.087"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.905" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toTopOf="@+id/button24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="45sp"
+        android:layout_height="45sp"
+        android:onClick="ranking"
+        app:layout_constraintBottom_toBottomOf="@+id/button24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.634"
+        app:layout_constraintStart_toEndOf="@+id/button24"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/podium_black" />
 
 </android.support.constraint.ConstraintLayout>

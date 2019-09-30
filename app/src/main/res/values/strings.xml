@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Memory Game</string>
+    <string name="action_rank">Ranking</string>
+    <string name="action_sair">Exit</string>
+    <string name="title_activity_ranking">Ranking</string>
+    <string name="channel_name">My Channel</string>
+    <string name="text_dialog">Player Name</string>
 </resources>
